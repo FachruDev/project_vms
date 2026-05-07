@@ -1,0 +1,10 @@
+function nvm-load {
+    if (Test-Path .nvmrc) {
+        $version = Get-Content .nvmrc
+        nvm use $version.Trim()
+    } else {
+        Write-Host "No .nvmrc file found." -ForegroundColor Yellow
+    }
+}
+
+Set-Alias nvmu nvm-load
