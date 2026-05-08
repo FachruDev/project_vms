@@ -1,134 +1,120 @@
 import { useMemo, useState } from "react";
 import Icon from "../dashboard/IconInternal";
+import CustomDropdown from "../ui/CustomDropdownInternal";
 
 function UpdateProgressCardInternal({ data, stages, currentStep, onBack, onStageSelect, onContinue }) {
-  const normalizedStages = useMemo(() => stages ?? [], [stages]);
-  const currentStage = useMemo(
-    () => normalizedStages.find((stage) => (stage.step ?? 0) === currentStep),
-    [normalizedStages, currentStep]
-  );
-  const nextStage = useMemo(
-    () => normalizedStages.find((stage) => (stage.step ?? 0) === currentStep + 1),
-    [normalizedStages, currentStep]
-  );
   const [selectedStep, setSelectedStep] = useState("");
+
+  const normalizedStages = useMemo(() => stages ?? [], [stages]);
+  const currentStage = useMemo(() => normalizedStages.find((s) => s.step === currentStep), [normalizedStages, currentStep]);
+  const nextStage = useMemo(() => normalizedStages.find((s) => s.step === currentStep + 1), [normalizedStages, currentStep]);
   const proofHistory = useMemo(() => data?.proofHistory ?? [], [data?.proofHistory]);
 
-  const handleStageChange = (event) => {
-    const step = Number(event.target.value);
-    setSelectedStep(event.target.value);
-    const selectedStage = normalizedStages.find((stage) => (stage.step ?? 0) === step);
-    if (selectedStage) {
-      onStageSelect?.(selectedStage);
-    }
-  };
-
-  const selectedStage = useMemo(
-    () => normalizedStages.find((stage) => String(stage.step ?? "") === selectedStep),
+  const selectedStageData = useMemo(
+    () => normalizedStages.find((s) => String(s.step) === selectedStep),
     [normalizedStages, selectedStep]
   );
 
   return (
-    <article className="rounded-2xl border border-[#9fb6dd] bg-[#f6f7f9] p-5 shadow-[0_8px_18px_rgba(10,18,35,0.06)]">
-      <h3 className="inline-flex items-center gap-2 text-2xl font-semibold text-[#08253a]">
-        <span aria-hidden>→</span>
-        Update Progress Tender
-      </h3>
-
-      <div className="mt-4 rounded-xl bg-[#eff3f8] px-4 py-3">
-        <p className="text-sm text-[#60717e]">
-          Status Saat Ini:
-          <span className="ml-2 rounded-full bg-[#dbe7ff] px-3 py-1 text-xs font-semibold text-[#153c7a]">
-            {currentStage?.title ?? data.currentStatus}
-          </span>
-        </p>
+    <article className="rounded-2xl border border-[#d9dde4] bg-[#f6f7f9] p-6 shadow-[0_8px_20px_rgba(10,18,35,0.04)] transition-all duration-300">
+      {/* Header */}
+      <div className="flex items-center justify-between border-b border-[#e3e6eb] pb-4">
+        <h3 className="flex items-center gap-2 text-md font-bold text-[#08253a]">
+          <Icon name="upload" className="h-5 w-5 text-[#153c7a]" /> 
+          Update Progress Tender
+        </h3>
       </div>
 
-      <div className="mt-3 rounded-xl border border-[#f2b0b0] bg-[#fdeeee] px-3 py-3 text-[#ef4444]">
-        <p className="inline-flex items-center gap-2 text-sm font-semibold">
-          <Icon name="alert" className="h-4 w-4" />
-          SLA Violation Alert
-        </p>
-        <p className="mt-1 text-xs">{data.slaWarning}</p>
+      {/* SLA Alert */}
+      <div className="mt-4 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-red-700">
+        <Icon name="alert" className="h-5 w-5 shrink-0" />
+        <div>
+          <p className="text-[11px] font-black uppercase tracking-wider">SLA Violation Alert</p>
+          <p className="mt-0.5 text-xs opacity-90 leading-relaxed">{data.slaWarning}</p>
+        </div>
       </div>
 
-      <div className="mt-4">
-        <label className="mb-1.5 block text-sm font-semibold text-[#0f2431]">Pilih Tahap Selanjutnya</label>
-        <select
-          value={selectedStep}
-          onChange={handleStageChange}
-          className="w-full rounded-xl border border-[#153c7a] bg-white px-4 py-2.5 text-sm text-[#0f2431]"
+      {/* Input Section */}
+      <div className="mt-6 space-y-6">
+        {/* Menggunakan Reusable Dropdown */}
+        <div className="space-y-2">
+          <label className="block text-[11px] font-black uppercase tracking-wider text-[#64748b]">Pilih Tahap Selanjutnya</label>
+          <CustomDropdown 
+            options={normalizedStages}
+            selectedValue={selectedStep}
+            onSelect={(stage) => {
+              setSelectedStep(String(stage.step));
+              onStageSelect?.(stage);
+            }}
+            placeholder="Pilih tahap tujuan..."
+            nextStep={nextStage?.step}
+          />
+        </div>
+
+        {/* Upload Section */}
+        <div className="space-y-2">
+          <label className="block text-[11px] font-black uppercase tracking-wider text-[#64748b]">Upload Bukti Dokumen *</label>
+          <label className="group/file flex cursor-pointer flex-col items-center rounded-xl border-2 border-dashed border-[#cbd3df] bg-white px-4 py-8 text-center transition-all hover:border-[#153c7a]/40 hover:bg-[#f8fafc]">
+            <div className="grid h-12 w-12 place-items-center rounded-full bg-[#f1f5f9] text-[#64748b] transition-colors group-hover/file:bg-[#153c7a] group-hover/file:text-white">
+              <Icon name="upload" className="h-6 w-6" />
+            </div>
+            <p className="mt-3 text-sm font-bold text-[#1f2b3a]">Klik untuk pilih file</p>
+            <p className="mt-1 text-[11px] text-[#94a3b8]">Format PDF, DOCX (Maks. 10MB)</p>
+            <input type="file" className="hidden" />
+          </label>
+        </div>
+
+        {/* Textarea */}
+        <div className="space-y-2">
+          <label className="block text-[11px] font-black uppercase tracking-wider text-[#64748b]">Keterangan (Opsional)</label>
+          <textarea
+            rows={3}
+            placeholder="Tambahkan catatan untuk pembaruan ini..."
+            className="w-full rounded-xl border border-[#d1d8e0] bg-white px-4 py-3 text-sm text-[#0f2431] outline-none transition-all focus:border-[#153c7a] focus:ring-4 focus:ring-[#153c7a]/10 resize-none"
+          />
+        </div>
+      </div>
+
+      {/* Buttons */}
+      <div className="mt-8 space-y-3">
+        <button
+          type="button"
+          disabled={!selectedStep}
+          onClick={() => onContinue?.(selectedStageData)}
+          className="group/btn relative overflow-hidden inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#153c7a] px-4 py-3.5 text-sm font-bold text-white shadow-md transition-all active:scale-[0.98] disabled:opacity-50 
+          before:absolute before:inset-0 before:origin-right before:scale-x-0 before:bg-[#0c2d5a] before:transition-transform before:duration-500 before:ease-out hover:before:origin-left hover:before:scale-x-100"
         >
-          <option value="">Pilih tahap tujuan...</option>
-          {normalizedStages.map((stage) => {
-            const isNext = (stage.step ?? 0) === (nextStage?.step ?? -1);
-            const isDisabled = !isNext;
-            return (
-              <option key={stage.step} value={stage.step} disabled={isDisabled}>
-                {stage.title}
-                {isNext ? " (tahap selanjutnya)" : ""}
-              </option>
-            );
-          })}
-        </select>
-      </div>
-
-      <div className="mt-3">
-        <p className="mb-1.5 text-sm font-semibold text-[#0f2431]">Upload Bukti Dokumen *</p>
-        <label className="flex cursor-pointer flex-col items-center rounded-xl border border-dashed border-[#cbd3df] bg-white px-4 py-6 text-center">
-          <Icon name="upload" className="h-7 w-7 text-[#60717e]" />
-          <p className="mt-2 text-sm text-[#60717e]">Upload bukti dokumen (PDF, DOC, DOCX)</p>
-          <span className="mt-2 rounded-lg border border-[#d1d8e0] bg-[#f4f6f8] px-3 py-1.5 text-sm font-semibold text-[#1f2b3a]">
-            Pilih File
+          <span className="relative z-10 flex items-center gap-2">
+            Update Ke Tahap Berikutnya 
+            <Icon name="arrow-right" className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
           </span>
-          <input type="file" className="hidden" />
-        </label>
+        </button>
+
+        <button 
+          onClick={onBack} 
+          className="w-full rounded-xl border border-[#d1d8e0] bg-white py-3 text-sm font-bold text-[#64748b] transition-all hover:bg-[#f8fafc] hover:text-[#1e293b]"
+        >
+          Kembali
+        </button>
       </div>
 
-      <div className="mt-3">
-        <label className="mb-1.5 block text-sm font-semibold text-[#0f2431]">Keterangan (Opsional)</label>
-        <textarea
-          rows={3}
-          placeholder="Tambahkan keterangan untuk bukti dokumen..."
-          className="w-full rounded-xl border border-[#d1d8e0] bg-white px-4 py-2.5 text-sm text-[#0f2431] outline-none"
-        />
-      </div>
-
-      <div className="mt-3 rounded-xl border border-[#d1d8e0] bg-[#eef3fb] px-3 py-2 text-xs text-[#51697a]">
-        Update progress akan mengirim notifikasi otomatis ke semua vendor terdaftar melalui Email dan WhatsApp.
-      </div>
-
-      <button
-        type="button"
-        onClick={() => onContinue?.(selectedStage)}
-        className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#8ea2c6] px-4 py-2.5 text-sm font-semibold text-white"
-      >
-        <span aria-hidden>→</span>
-        Update Ke Tahap Berikutnya
-      </button>
-
-      <div className="mt-4 border-t border-[#d9dde4] pt-3">
-        <p className="text-sm font-semibold text-[#0f2431]">Riwayat Bukti Dokumen</p>
-        <div className="mt-3 space-y-2">
+      {/* History */}
+      <div className="mt-8 border-t border-[#e3e6eb] pt-6">
+        <h4 className="text-[11px] font-black uppercase tracking-[0.15em] text-[#94a3b8]">Riwayat Dokumen</h4>
+        <div className="mt-4 space-y-2">
           {proofHistory.map((item) => (
-            <div key={item.id} className="flex items-center justify-between rounded-lg bg-[#eff2f6] px-3 py-2">
-              <p className="text-sm text-[#0f2431]">
-                <span className="rounded-full border border-[#d1d8e0] bg-white px-2 py-0.5 text-xs">{item.stage}</span>
-                <span className="ml-3">{item.fileName}</span>
-              </p>
-              <span className="text-xs text-[#60717e]">{item.date}</span>
+            <div key={item.id} className="group flex items-center justify-between rounded-xl bg-[#eceef2] px-4 py-3 transition-all hover:bg-white hover:shadow-sm hover:border-[#e3e6eb] border border-transparent">
+              <div className="flex items-center gap-3">
+                <span className="rounded bg-white border border-[#d1d8e0] px-2 py-0.5 text-[10px] font-black text-[#153c7a]">
+                  {item.stage}
+                </span>
+                <span className="text-sm font-bold text-[#1f2b3a]">{item.fileName}</span>
+              </div>
+              <span className="text-[11px] font-medium text-[#64748b]">{item.date}</span>
             </div>
           ))}
         </div>
       </div>
-
-      <button
-        type="button"
-        onClick={onBack}
-        className="mt-4 inline-flex items-center justify-center rounded-xl border border-[#d1d8e0] bg-[#f4f6f8] px-5 py-2.5 text-sm font-semibold text-[#1f2b3a]"
-      >
-        Kembali
-      </button>
     </article>
   );
 }
