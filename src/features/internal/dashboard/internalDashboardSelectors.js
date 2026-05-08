@@ -49,6 +49,11 @@ export const selectInternalRegisteredVendors = createSelector(
   (dashboard) => dashboard.registeredVendors ?? []
 );
 
+export const selectInternalUpdateProgress = createSelector(
+  selectInternalDashboardEntities,
+  (dashboard) => dashboard.updateProgress
+);
+
 export const selectInternalCreateModalOpen = createSelector(
   selectInternalDashboardState,
   (state) => state.ui.isCreateModalOpen

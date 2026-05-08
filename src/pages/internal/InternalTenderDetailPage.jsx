@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 import TopNavbarInternal from "../../components/internal/dashboard/TopNavbarInternal";
 import TenderPageHeader from "../../components/internal/tender/TenderPageHeader";
 import TenderProgressCardInternal from "../../components/internal/tender/TenderProgressCardInternal";
@@ -7,21 +8,25 @@ import TenderDetailCardInternal from "../../components/internal/tender/TenderDet
 import QuickActionsCardInternal from "../../components/internal/tender/QuickActionsCardInternal";
 import TimeLineCardInternal from "../../components/internal/tender/TimeLineCardInternal";
 import RegisteredVendorsCardInternal from "../../components/internal/tender/RegisteredVendorsCardInternal";
+import UpdateProgressCardInternal from "../../components/internal/tender/UpdateProgressCardInternal";
 import {
   selectInternalCurrentStep,
   selectInternalFocusTender,
   selectInternalNotificationCount,
   selectInternalRegisteredVendors,
   selectInternalStages,
+  selectInternalUpdateProgress,
 } from "../../features/internal/dashboard/internalDashboardSelectors";
 
 function InternalTenderDetailPage() {
   const navigate = useNavigate();
+  const [showUpdateProgress, setShowUpdateProgress] = useState(false);
   const notificationCount = useSelector(selectInternalNotificationCount);
   const focusTender = useSelector(selectInternalFocusTender);
   const stages = useSelector(selectInternalStages);
   const currentStep = useSelector(selectInternalCurrentStep);
   const registeredVendors = useSelector(selectInternalRegisteredVendors);
+  const updateProgressData = useSelector(selectInternalUpdateProgress);
 
   return (
     <div className="min-h-screen bg-[#f1f2f5] text-[#172033]">
@@ -45,11 +50,22 @@ function InternalTenderDetailPage() {
           <section className="grid gap-5 lg:grid-cols-[minmax(0,1.8fr)_minmax(320px,0.85fr)]">
             <div className="space-y-5">
               <TenderDetailCardInternal focusTender={focusTender} />
+              {showUpdateProgress ? (
+                <UpdateProgressCardInternal
+                  data={updateProgressData}
+                  stages={stages}
+                  currentStep={currentStep}
+                  onBack={() => setShowUpdateProgress(false)}
+                />
+              ) : null}
               <RegisteredVendorsCardInternal vendors={registeredVendors} />
             </div>
 
             <aside className="space-y-5">
-              <QuickActionsCardInternal mode="detail" />
+              <QuickActionsCardInternal
+                onUpdateProgress={() => setShowUpdateProgress(true)}
+                onInviteVendor={() => {}}
+              />
               <TimeLineCardInternal timeline={focusTender.timeline} />
             </aside>
           </section>

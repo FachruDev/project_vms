@@ -248,5 +248,16 @@ export const entitiesSeed = {
         status: "rejected",
       },
     ],
+    updateProgress: {
+      currentStatus: "Evaluasi Teknis",
+      slaWarning: "Peringatan: Tahap ini terlambat 89 hari dari target SLA (09/02).",
+      nextStageOptions: ["Klarifikasi", "Evaluasi Harga", "Laporan", "Award"],
+      note: "",
+      proofFileName: "",
+      proofHistory: [
+        { id: "UPR-001", stage: "Undang", fileName: "undangan_vendor.pdf", date: "2/1/2026" },
+        { id: "UPR-002", stage: "Regis", fileName: "daftar_registrasi.xlsx", date: "5/1/2026" },
+      ],
+    },
   },
 };
