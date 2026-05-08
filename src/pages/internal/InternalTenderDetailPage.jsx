@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TopNavbarInternal from "../../components/internal/dashboard/TopNavbarInternal";
 import TenderPageHeader from "../../components/internal/tender/TenderPageHeader";
 import TenderProgressCardInternal from "../../components/internal/tender/TenderProgressCardInternal";
@@ -20,13 +20,24 @@ import {
 
 function InternalTenderDetailPage() {
   const navigate = useNavigate();
-  const [showUpdateProgress, setShowUpdateProgress] = useState(false);
+  const [searchParams] = useSearchParams();
+  const [showUpdateProgress, setShowUpdateProgress] = useState(searchParams.get("mode") === "edit");
   const notificationCount = useSelector(selectInternalNotificationCount);
   const focusTender = useSelector(selectInternalFocusTender);
   const stages = useSelector(selectInternalStages);
   const currentStep = useSelector(selectInternalCurrentStep);
   const registeredVendors = useSelector(selectInternalRegisteredVendors);
   const updateProgressData = useSelector(selectInternalUpdateProgress);
+  const handleStageSelect = (stage) => {
+    const normalizedTitle = String(stage?.title ?? "").toLowerCase();
+    if (normalizedTitle.includes("evaluasi teknis")) {
+      navigate(`/internal/tender/${focusTender.id}/evaluasi-teknis`);
+    }
+  };
+
+  useEffect(() => {
+    setShowUpdateProgress(searchParams.get("mode") === "edit");
+  }, [searchParams]);
 
   return (
     <div className="min-h-screen bg-[#f1f2f5] text-[#172033]">
@@ -56,6 +67,8 @@ function InternalTenderDetailPage() {
                   stages={stages}
                   currentStep={currentStep}
                   onBack={() => setShowUpdateProgress(false)}
+                  onStageSelect={handleStageSelect}
+                  onContinue={handleStageSelect}
                 />
               ) : null}
               <RegisteredVendorsCardInternal vendors={registeredVendors} />

@@ -1,7 +1,7 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import Icon from "../dashboard/IconInternal";
 
-function UpdateProgressCardInternal({ data, stages, currentStep, onBack }) {
+function UpdateProgressCardInternal({ data, stages, currentStep, onBack, onStageSelect, onContinue }) {
   const normalizedStages = useMemo(() => stages ?? [], [stages]);
   const currentStage = useMemo(
     () => normalizedStages.find((stage) => (stage.step ?? 0) === currentStep),
@@ -11,7 +11,22 @@ function UpdateProgressCardInternal({ data, stages, currentStep, onBack }) {
     () => normalizedStages.find((stage) => (stage.step ?? 0) === currentStep + 1),
     [normalizedStages, currentStep]
   );
+  const [selectedStep, setSelectedStep] = useState("");
   const proofHistory = useMemo(() => data?.proofHistory ?? [], [data?.proofHistory]);
+
+  const handleStageChange = (event) => {
+    const step = Number(event.target.value);
+    setSelectedStep(event.target.value);
+    const selectedStage = normalizedStages.find((stage) => (stage.step ?? 0) === step);
+    if (selectedStage) {
+      onStageSelect?.(selectedStage);
+    }
+  };
+
+  const selectedStage = useMemo(
+    () => normalizedStages.find((stage) => String(stage.step ?? "") === selectedStep),
+    [normalizedStages, selectedStep]
+  );
 
   return (
     <article className="rounded-2xl border border-[#9fb6dd] bg-[#f6f7f9] p-5 shadow-[0_8px_18px_rgba(10,18,35,0.06)]">
@@ -40,16 +55,21 @@ function UpdateProgressCardInternal({ data, stages, currentStep, onBack }) {
       <div className="mt-4">
         <label className="mb-1.5 block text-sm font-semibold text-[#0f2431]">Pilih Tahap Selanjutnya</label>
         <select
-          disabled={!nextStage}
-          className="w-full rounded-xl border border-[#153c7a] bg-white px-4 py-2.5 text-sm text-[#0f2431] disabled:cursor-not-allowed disabled:bg-[#eef2f7]"
+          value={selectedStep}
+          onChange={handleStageChange}
+          className="w-full rounded-xl border border-[#153c7a] bg-white px-4 py-2.5 text-sm text-[#0f2431]"
         >
-          {nextStage ? (
-            <option value={nextStage.title}>
-              {nextStage.title} (tahap selanjutnya)
-            </option>
-          ) : (
-            <option value="">Tidak ada tahap berikutnya</option>
-          )}
+          <option value="">Pilih tahap tujuan...</option>
+          {normalizedStages.map((stage) => {
+            const isNext = (stage.step ?? 0) === (nextStage?.step ?? -1);
+            const isDisabled = !isNext;
+            return (
+              <option key={stage.step} value={stage.step} disabled={isDisabled}>
+                {stage.title}
+                {isNext ? " (tahap selanjutnya)" : ""}
+              </option>
+            );
+          })}
         </select>
       </div>
 
@@ -78,7 +98,11 @@ function UpdateProgressCardInternal({ data, stages, currentStep, onBack }) {
         Update progress akan mengirim notifikasi otomatis ke semua vendor terdaftar melalui Email dan WhatsApp.
       </div>
 
-      <button className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#8ea2c6] px-4 py-2.5 text-sm font-semibold text-white">
+      <button
+        type="button"
+        onClick={() => onContinue?.(selectedStage)}
+        className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#8ea2c6] px-4 py-2.5 text-sm font-semibold text-white"
+      >
         <span aria-hidden>→</span>
         Update Ke Tahap Berikutnya
       </button>

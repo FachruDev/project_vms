@@ -78,7 +78,7 @@ function InternalDashboardPage() {
               stages={stages}
               currentStep={currentStep}
               onView={() => navigate(`/internal/tender/${focusTender.id}/detail`)}
-              onEdit={() => dispatch(openCreateTenderModal())}
+              onEdit={() => navigate(`/internal/tender/${focusTender.id}/detail?mode=edit`)}
             />
           </div>
 

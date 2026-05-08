@@ -54,6 +54,11 @@ export const selectInternalUpdateProgress = createSelector(
   (dashboard) => dashboard.updateProgress
 );
 
+export const selectInternalTechnicalEvaluation = createSelector(
+  selectInternalDashboardEntities,
+  (dashboard) => dashboard.technicalEvaluation
+);
+
 export const selectInternalCreateModalOpen = createSelector(
   selectInternalDashboardState,
   (state) => state.ui.isCreateModalOpen
