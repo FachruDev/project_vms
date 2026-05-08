@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Navigate, useRoutes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTenderDashboard } from "./features/vendor/tender/tenderSlice";
+import { fetchEntities } from "./features/shared/entities/entitiesSlice";
 import {
   selectTenderRequestError,
   selectTenderRequestStatus,
@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() => {
     if (status === "idle") {
-      dispatch(fetchTenderDashboard());
+      dispatch(fetchEntities());
     }
   }, [dispatch, status]);
 

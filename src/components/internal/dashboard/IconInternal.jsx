@@ -159,6 +159,60 @@ function Icon({ name, className = "h-5 w-5" }) {
     );
   }
 
+  if (name === "close") {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+        <path d="M18 6 6 18" />
+        <path d="m6 6 12 12" />
+      </svg>
+    );
+  }
+
+  if (name === "plus") {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+        <path d="M5 12h14" />
+        <path d="M12 5v14" />
+      </svg>
+    );
+  }
+
+  if (name === "edit") {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+        <path d="M12 20h9" />
+        <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z" />
+      </svg>
+    );
+  }
+
+  if (name === "chevron-down") {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+        <path d="m6 9 6 6 6-6" />
+      </svg>
+    );
+  }
+
+  if (name === "wallet") {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+        <path d="M21 7H3v10a2 2 0 0 0 2 2h16z" />
+        <path d="M16 3H6a3 3 0 0 0-3 3v1h18V6a3 3 0 0 0-3-3Z" />
+        <circle cx="17" cy="12" r="1" />
+      </svg>
+    );
+  }
+
+  if (name === "trend-up") {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+        <path d="m7 17 10-10" />
+        <path d="M10 7h7v7" />
+      </svg>
+    );
+  }
+
   return null;
 }
 

@@ -1,30 +1,35 @@
 import { createSelector } from "@reduxjs/toolkit";
+import {
+  selectEntitiesRequestError,
+  selectEntitiesRequestStatus,
+  selectVendorDashboardEntities,
+} from "../../shared/entities/entitiesSelectors";
 
 export const selectTenderState = (state) => state.tender;
 
 export const selectTenderRequestStatus = createSelector(
-  selectTenderState,
-  (tender) => tender.request.status
+  selectEntitiesRequestStatus,
+  (status) => status
 );
 
 export const selectTenderRequestError = createSelector(
-  selectTenderState,
-  (tender) => tender.request.error
+  selectEntitiesRequestError,
+  (error) => error
 );
 
 export const selectNotificationsCount = createSelector(
-  selectTenderState,
-  (tender) => tender.notifications.length
+  selectVendorDashboardEntities,
+  (dashboard) => dashboard.notifications.length
 );
 
 export const selectKpiCards = createSelector(
-  selectTenderState,
-  (tender) => tender.kpiCards
+  selectVendorDashboardEntities,
+  (dashboard) => dashboard.kpiCards
 );
 
 export const selectDashboardTabs = createSelector(
-  selectTenderState,
-  (tender) => tender.dashboardTabs
+  selectVendorDashboardEntities,
+  (dashboard) => dashboard.dashboardTabs
 );
 
 export const selectActiveTabId = createSelector(
@@ -38,13 +43,13 @@ export const selectTabsWithActive = createSelector(
 );
 
 export const selectFocusTender = createSelector(
-  selectTenderState,
-  (tender) => tender.focusTender
+  selectVendorDashboardEntities,
+  (dashboard) => dashboard.focusTender
 );
 
 export const selectTenderStages = createSelector(
-  selectTenderState,
-  (tender) => tender.tenderStages
+  selectVendorDashboardEntities,
+  (dashboard) => dashboard.tenderStages
 );
 
 export const selectVisibleStages = createSelector(
@@ -62,13 +67,13 @@ export const selectProgressWidth = createSelector(
 );
 
 export const selectOfferStatus = createSelector(
-  selectTenderState,
-  (tender) => tender.offerStatus
+  selectVendorDashboardEntities,
+  (dashboard) => dashboard.offerStatus
 );
 
 export const selectActionItems = createSelector(
-  selectTenderState,
-  (tender) => tender.actionItems
+  selectVendorDashboardEntities,
+  (dashboard) => dashboard.actionItems
 );
 
 export const selectRegistrationForm = createSelector(

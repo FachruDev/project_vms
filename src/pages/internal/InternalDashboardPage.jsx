@@ -1,35 +1,100 @@
-import InternalTopbar from "../../components/internal/InternalTopbar";
-import InternalStatCard from "../../components/internal/InternalStatCard";
-import InternalTable from "../../components/internal/InternalTable";
-
-const internalStats = [
-  { title: "Tender Aktif Internal", value: "12", helper: "Per 07 Mei 2026" },
-  { title: "Perlu Approval", value: "4", helper: "Menunggu manajer" },
-  { title: "Overdue SLA", value: "2", helper: "Perlu eskalasi" },
-  { title: "Vendor Baru", value: "9", helper: "Minggu ini" },
-];
-
-const internalRows = [
-  { id: "INT-001", tender: "Pengadaan Server Backup", pic: "Rina Putri", status: "Review", updatedAt: "2026-05-07" },
-  { id: "INT-002", tender: "Upgrade ERP Module", pic: "Aldi Kurnia", status: "Approval", updatedAt: "2026-05-07" },
-  { id: "INT-003", tender: "Lisensi Endpoint Security", pic: "Dimas Yoga", status: "Monitoring", updatedAt: "2026-05-06" },
-  { id: "INT-004", tender: "Revamp Portal Vendor", pic: "Nadia Ayu", status: "On Progress", updatedAt: "2026-05-05" },
-];
+import { useDispatch, useSelector } from "react-redux";
+import TopNavbarInternal from "../../components/internal/dashboard/TopNavbarInternal";
+import KpiCardInternal from "../../components/internal/dashboard/KpiCardInternal";
+import StatusTabsInternal from "../../components/internal/dashboard/StatusTabsInternal";
+import TenderOverviewInternal from "../../components/internal/dashboard/TenderOverviewInternal";
+import ActionItemCardInternal from "../../components/internal/dashboard/ActionItemCardInternal";
+import AuditTrailCardInternal from "../../components/internal/dashboard/AuditTrailCardInternal";
+import CreateTenderModalInternal from "../../components/internal/dashboard/CreateTenderModalInternal";
+import {
+  closeCreateTenderModal,
+  openCreateTenderModal,
+  resetCreateTenderForm,
+  setInternalActiveTab,
+  updateCreateTenderField,
+} from "../../features/internal/dashboard/internalDashboardSlice";
+import {
+  selectInternalActionItems,
+  selectInternalAuditTrail,
+  selectInternalCreateModalOpen,
+  selectInternalCreateTenderForm,
+  selectInternalCurrentStep,
+  selectInternalFocusTender,
+  selectInternalKpiCards,
+  selectInternalNotificationCount,
+  selectInternalStages,
+  selectInternalTabsWithActive,
+} from "../../features/internal/dashboard/internalDashboardSelectors";
+import IconInternal from "../../components/internal/dashboard/IconInternal";
 
 function InternalDashboardPage() {
-  return (
-    <div className="min-h-screen bg-[#f3f6fc] text-[#1f2b3a]">
-      <InternalTopbar />
+  const dispatch = useDispatch();
 
-      <main className="mx-auto w-full max-w-[1400px] space-y-5 px-4 py-5 md:px-6 md:py-6">
-        <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          {internalStats.map((item) => (
-            <InternalStatCard key={item.title} {...item} />
+  const notificationCount = useSelector(selectInternalNotificationCount);
+  const kpiCards = useSelector(selectInternalKpiCards);
+  const tabs = useSelector(selectInternalTabsWithActive);
+  const focusTender = useSelector(selectInternalFocusTender);
+  const stages = useSelector(selectInternalStages);
+  const currentStep = useSelector(selectInternalCurrentStep);
+  const actionItems = useSelector(selectInternalActionItems);
+  const auditTrail = useSelector(selectInternalAuditTrail);
+  const modalOpen = useSelector(selectInternalCreateModalOpen);
+  const form = useSelector(selectInternalCreateTenderForm);
+
+  return (
+    <div className="min-h-screen bg-[#f1f2f5] text-[#1f2b3a]">
+      <TopNavbarInternal notificationCount={notificationCount} />
+
+      <main className="mx-auto w-full px-2 pb-6 pt-6 md:px-4 lg:px-4">
+        <section className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h1 className="text-lg font-bold text-[#081c43] md:text-2xl">Internal Dashboard</h1>
+            <p className="text-base text-[#51697a] md:text-md">Pantau tender internal, evaluasi, dan audit aktivitas.</p>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => dispatch(openCreateTenderModal())}
+            className="inline-flex items-center gap-2 rounded-xl bg-[#153c7a] px-4 py-2.5 text-sm font-semibold text-white"
+          >
+            <IconInternal name="plus" className="h-4 w-4" />
+            Create Tender
+          </button>
+        </section>
+
+        <section className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {kpiCards.map((card) => (
+            <KpiCardInternal key={card.id} card={card} />
           ))}
         </section>
 
-        <InternalTable rows={internalRows} />
+        <section className="mt-6 grid gap-5 xl:grid-cols-[minmax(0,1.9fr)_minmax(360px,0.95fr)]">
+          <div className="space-y-4">
+            <StatusTabsInternal tabs={tabs} onChangeTab={(tabId) => dispatch(setInternalActiveTab(tabId))} />
+            <TenderOverviewInternal
+              focusTender={focusTender}
+              stages={stages}
+              currentStep={currentStep}
+              onView={() => {}}
+              onEdit={() => dispatch(openCreateTenderModal())}
+            />
+          </div>
+
+          <aside className="space-y-5">
+            <ActionItemCardInternal actionItems={actionItems} />
+            <AuditTrailCardInternal items={auditTrail} />
+          </aside>
+        </section>
       </main>
+
+      <CreateTenderModalInternal
+        open={modalOpen}
+        form={form}
+        onClose={() => dispatch(closeCreateTenderModal())}
+        onFieldChange={(field, value) => dispatch(updateCreateTenderField({ field, value }))}
+        onFileChange={(field, fileName) => dispatch(updateCreateTenderField({ field, value: fileName }))}
+        onReset={() => dispatch(resetCreateTenderForm())}
+      />
     </div>
   );
 }
