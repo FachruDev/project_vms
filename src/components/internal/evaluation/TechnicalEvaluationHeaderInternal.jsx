@@ -7,7 +7,7 @@ function TechnicalEvaluationHeaderInternal({ title, tenderId, subtitle, status, 
         <button
           type="button"
           onClick={onBack}
-          className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#d1d8e0] bg-[#f6f7f9] text-[#1f2b3a] transition-colors hover:bg-[#eef2f6]"
+          className="mt-0.5 inline-flex cursor-pointer h-8 w-8 items-center justify-center rounded-lg border border-[#d1d8e0] bg-[#f6f7f9] text-[#1f2b3a] transition-colors hover:bg-[#eef2f6]"
         >
           <Icon name="arrow-left" className="h-4 w-4" />
         </button>
