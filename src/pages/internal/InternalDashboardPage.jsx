@@ -48,19 +48,35 @@ function InternalDashboardPage() {
       <TopNavbarInternal notificationCount={notificationCount} />
 
       <main className="mx-auto w-full px-2 pb-6 pt-6 md:px-4 lg:px-4">
-        <section className="flex flex-wrap items-center justify-between gap-3">
+        <section className="flex flex-wrap items-center justify-between gap-4 border-b border-[#e3e6eb] pb-6">
           <div>
-            <h1 className="text-lg font-bold text-[#081c43] md:text-2xl">Internal Dashboard</h1>
-            <p className="text-base text-[#51697a] md:text-md">Pantau tender internal, evaluasi, dan audit aktivitas.</p>
+            <h1 className="text-xl font-bold tracking-tight text-[#081c43] md:text-2xl">Internal Dashboard</h1>
+            <p className="mt-1 text-sm text-[#51697a]">Pantau tender internal, evaluasi, dan audit aktivitas sistem.</p>
           </div>
 
           <button
             type="button"
             onClick={() => dispatch(openCreateTenderModal())}
-            className="inline-flex items-center gap-2 rounded-xl bg-[#153c7a] px-4 py-2.5 text-sm font-semibold text-white"
+            // Update Class Tombol Utama
+            className="
+              group/btn relative overflow-hidden inline-flex cursor-pointer items-center gap-2 rounded-xl bg-[#153c7a] px-5 py-2.5 
+              text-sm font-semibold text-white shadow-md active:scale-[0.98]
+              
+              /* Animasi Fill Slide */
+              before:absolute before:inset-0 before:origin-right before:scale-x-0 
+              before:bg-[#0c2d5a] /* Biru yang lebih gelap untuk fill */
+              before:transition-transform before:duration-500 before:ease-out 
+              hover:before:origin-left hover:before:scale-x-100
+            "
           >
-            <IconInternal name="plus" className="h-4 w-4" />
-            Create Tender
+            {/* Menggunakan relative z-10 agar teks & icon tetap di atas background yang geser */}
+            <span className="relative z-10 flex items-center gap-2">
+              <IconInternal 
+                name="plus" 
+                className="h-4 w-4 transition-transform duration-300 group-hover/btn:rotate-90" 
+              />
+              Create New Tender
+            </span>
           </button>
         </section>
 

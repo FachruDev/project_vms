@@ -34,7 +34,7 @@ function VendorDetailModal({ vendor, onClose }) {
           <button
             type="button"
             onClick={onClose}
-            className="group grid h-10 w-10 place-items-center rounded-xl border border-[#d8e0ef] text-[#5f6f86] transition-all hover:bg-[#f04444] hover:text-white hover:border-[#f04444] active:scale-90"
+            className="group cursor-pointer grid h-10 w-10 place-items-center rounded-xl border border-[#d8e0ef] text-[#5f6f86] transition-all hover:bg-[#f04444] hover:text-white hover:border-[#f04444] active:scale-90"
           >
             <Icon name="close" className="h-4 w-4" />
           </button>
@@ -87,7 +87,7 @@ function VendorDetailModal({ vendor, onClose }) {
                       </div>
                       <button
                         type="button"
-                        className="grid h-9 w-9 place-items-center rounded-xl border border-[#e2e8f0] bg-white text-[#153c7a] transition-all hover:bg-[#153c7a] hover:text-white active:scale-90"
+                        className="grid cursor-pointer h-9 w-9 place-items-center rounded-xl border border-[#e2e8f0] bg-white text-[#153c7a] transition-all hover:bg-[#153c7a] hover:text-white active:scale-90"
                         title="Unduh Berkas"
                       >
                         <Icon name="download" className="h-4 w-4" />
@@ -104,7 +104,7 @@ function VendorDetailModal({ vendor, onClose }) {
         <div className="border-t border-[#f0f2f5] bg-[#f8fafc] p-6 text-right">
           <button 
             onClick={onClose}
-            className="rounded-xl px-6 py-2.5 text-sm font-bold text-[#64748b] transition-colors hover:text-[#1e293b]"
+            className="rounded-xl cursor-pointer px-6 py-2.5 text-sm font-bold text-[#64748b] transition-colors hover:text-[#1e293b]"
           >
             Tutup Detail
           </button>
@@ -150,7 +150,7 @@ function RegisteredVendorsCardInternal({ vendors }) {
                     <button
                       type="button"
                       onClick={() => setSelectedVendor(vendor)}
-                      className="grid h-7 w-7 place-items-center rounded-lg border border-[#d1d5db] bg-white text-[#5f6f86] opacity-0 transition-all duration-200 hover:border-[#153c7a] hover:bg-[#153c7a] hover:text-white group-hover:opacity-100 active:scale-90"
+                      className="grid cursor-pointer h-7 w-7 place-items-center rounded-lg border border-[#d1d5db] bg-white text-[#5f6f86] opacity-0 transition-all duration-200 hover:border-[#153c7a] hover:bg-[#153c7a] hover:text-white group-hover:opacity-100 active:scale-90"
                     >
                       <Icon name="eye" className="h-3.5 w-3.5" />
                     </button>
@@ -170,10 +170,10 @@ function RegisteredVendorsCardInternal({ vendors }) {
 
                 {vendor.status === "pending" && (
                   <div className="ml-1 flex items-center gap-2 border-l border-[#d9dde4] pl-3">
-                    <button className="grid h-8 w-8 place-items-center rounded-lg border border-[#d9dde4] bg-white text-[#16b983] transition-all hover:bg-[#16b983] hover:text-white hover:border-[#16b983] active:scale-90 shadow-sm">
+                    <button className="grid cursor-pointer h-8 w-8 place-items-center rounded-lg border border-[#d9dde4] bg-white text-[#16b983] transition-all hover:bg-[#16b983] hover:text-white hover:border-[#16b983] active:scale-90 shadow-sm">
                       <Icon name="check" className="h-4 w-4" />
                     </button>
-                    <button className="grid h-8 w-8 place-items-center rounded-lg border border-[#d9dde4] bg-white text-[#ef4444] transition-all hover:bg-[#ef4444] hover:text-white hover:border-[#ef4444] active:scale-90 shadow-sm">
+                    <button className="grid cursor-pointer h-8 w-8 place-items-center rounded-lg border border-[#d9dde4] bg-white text-[#ef4444] transition-all hover:bg-[#ef4444] hover:text-white hover:border-[#ef4444] active:scale-90 shadow-sm">
                       <Icon name="close" className="h-4 w-4" />
                     </button>
                   </div>

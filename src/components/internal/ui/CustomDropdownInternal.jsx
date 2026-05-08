@@ -16,6 +16,11 @@ function CustomDropdown({ options, selectedValue, onSelect, placeholder, nextSte
   }, []);
 
   const selectedOption = options.find((opt) => String(opt.step) === selectedValue);
+  const isSelectable = (stage) => {
+    const isSelected = String(stage.step) === selectedValue;
+    const isNext = nextStep !== undefined && stage.step === nextStep;
+    return isSelected || nextStep === undefined || isNext;
+  };
 
   return (
     <div className="relative w-full" ref={dropdownRef}>
@@ -39,14 +44,15 @@ function CustomDropdown({ options, selectedValue, onSelect, placeholder, nextSte
         <div className="absolute z-50 mt-2 w-full rounded-2xl border border-[#e2e8f0] bg-white p-2 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)] animate-in fade-in zoom-in-95 duration-200">
           <div className="max-h-[300px] overflow-y-auto space-y-1">
             {options.map((stage) => {
-              const isNext = stage.step === nextStep;
+              const isNext = nextStep !== undefined && stage.step === nextStep;
               const isSelected = String(stage.step) === selectedValue;
+              const allowed = isSelectable(stage);
               
               return (
                 <button
                   key={stage.step}
                   type="button"
-                  disabled={!isNext && !isSelected}
+                  disabled={!allowed}
                   onClick={() => {
                     onSelect(stage);
                     setIsOpen(false);
@@ -55,7 +61,7 @@ function CustomDropdown({ options, selectedValue, onSelect, placeholder, nextSte
                     flex w-full items-center gap-2 rounded-xl px-4 py-2.5 text-left text-sm transition-all
                     ${isSelected 
                       ? "bg-[#153c7a] text-white font-semibold" 
-                      : isNext 
+                      : allowed 
                       ? "text-[#153c7a] hover:bg-[#153c7a] hover:text-white" 
                       : "text-[#94a3b8] cursor-not-allowed"}
                   `}

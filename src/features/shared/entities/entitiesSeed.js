@@ -10,6 +10,8 @@ export const vendorRegistrationFormDefaults = {
 export const internalCreateTenderFormDefaults = {
   title: "",
   description: "",
+  categoryId: "",
+  jenisId: "",
   budget: "5000000000",
   deadline: "",
   ursFileName: "",
