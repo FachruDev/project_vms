@@ -165,10 +165,24 @@ export const entitiesSeed = {
       id: "TND-000001",
       title: "Pengadaan Server Data Center",
       badge: "Evaluasi Teknis",
+      description:
+        "Tender pengadaan server data center untuk peningkatan performa sistem inti perusahaan, termasuk storage, backup, dan high availability cluster.",
       dueDate: "15 Feb 2026",
       vendorCount: 8,
       category: "IT Infrastructure",
+      tenderType: "Tender Terbatas",
+      slaAlert: "SLA Terlewat! Target 17/02 sudah terlewat 64 hari",
       budgetDisplay: "Rp 5.000.000.000",
+      ursFile: {
+        name: "URS_Server_DataCenter_2026.pdf",
+        size: "2.5 MB",
+        uploadedAt: "Uploaded 1 Januari 2026",
+      },
+      timeline: [
+        { id: "INT-TL-001", title: "Tender Dibuat", date: "5 Januari 2026", tone: "green" },
+        { id: "INT-TL-002", title: "Terakhir Diupdate", date: "13 Januari 2026", tone: "green" },
+        { id: "INT-TL-003", title: "Deadline", date: "15 Februari 2026", tone: "yellow" },
+      ],
     },
     tenderStages: [
       { step: 1, title: "Dok" },
@@ -181,6 +195,11 @@ export const entitiesSeed = {
       { step: 8, title: "Nego" },
       { step: 9, title: "Award" },
       { step: 10, title: "Kontrak" },
+      { step: 11, title: "PO" },
+      { step: 12, title: "Closed" },
+      { step: 13, title: "Handover" },
+      { step: 14, title: "BAST" },
+      { step: 15, title: "Selesai" },
     ],
     currentStep: 4,
     actionItems: [
@@ -205,6 +224,29 @@ export const entitiesSeed = {
       { id: "ADT-003", event: "ROLE_SWITCH", note: "Switched to procurement view", time: "09.36", tone: "green" },
       { id: "ADT-004", event: "ROLE_SWITCH", note: "Switched to vendor view", time: "09.36", tone: "blue" },
       { id: "ADT-005", event: "ROLE_SWITCH", note: "Switched to procurement view", time: "08.56", tone: "green" },
+    ],
+    registeredVendors: [
+      {
+        id: "IVND-001",
+        companyName: "PT Teknologi Maju",
+        email: "info@teknologimaju.co.id",
+        documentCount: 4,
+        status: "approved",
+      },
+      {
+        id: "IVND-002",
+        companyName: "CV Solusi Digital",
+        email: "contact@solusidigital.com",
+        documentCount: 3,
+        status: "pending",
+      },
+      {
+        id: "IVND-003",
+        companyName: "PT Auto Prima",
+        email: "sales@autoprima.co.id",
+        documentCount: 2,
+        status: "rejected",
+      },
     ],
   },
 };

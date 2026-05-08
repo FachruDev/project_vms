@@ -42,15 +42,31 @@ function TenderDetailCard({ focusTender }) {
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         <div className="rounded-xl bg-[#f2f4f6] p-4">
-          <p className="text-sm text-[#60717e]">Deadline</p>
+          <p className="inline-flex items-center gap-2 text-sm text-[#60717e]">
+            <Icon name="wallet" className="h-4 w-4 text-[#153c7a]" />
+            Anggaran
+          </p>
+          <p className="text-md font-semibold text-[#0f2431]">{focusTender.budgetDisplay}</p>
+        </div>
+        <div className="rounded-xl bg-[#f2f4f6] p-4">
+          <p className="inline-flex items-center gap-2 text-sm text-[#60717e]">
+            <Icon name="users" className="h-4 w-4 text-[#153c7a]" />
+            Vendor Terdaftar
+          </p>
+          <p className="text-md font-semibold text-[#0f2431]">{focusTender.vendorCount} Vendor</p>
+        </div>
+        <div className="rounded-xl bg-[#f2f4f6] p-4">
+          <p className="inline-flex items-center gap-2 text-sm text-[#60717e]">
+            <Icon name="calendar" className="h-4 w-4 text-[#153c7a]" />
+            Deadline
+          </p>
           <p className="text-md font-semibold text-[#0f2431]">{focusTender.dueDate}</p>
         </div>
         <div className="rounded-xl bg-[#f2f4f6] p-4">
-          <p className="text-sm text-[#60717e]">Vendor Terdaftar</p>
-          <p className="text-md font-semibold text-[#0f2431]">{focusTender.vendorCount} Vendor</p>
-        </div>
-        <div className="rounded-xl bg-[#f2f4f6] p-4 sm:col-span-2 lg:col-span-1">
-          <p className="text-sm text-[#60717e]">Kategori</p>
+          <p className="inline-flex items-center gap-2 text-sm text-[#60717e]">
+            <Icon name="file" className="h-4 w-4 text-[#153c7a]" />
+            Kategori
+          </p>
           <p className="text-md font-semibold text-[#0f2431]">{focusTender.category}</p>
         </div>
       </div>

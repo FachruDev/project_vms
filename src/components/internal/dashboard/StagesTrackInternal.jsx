@@ -1,17 +1,18 @@
 import React from "react";
 
 const StagesTrack = ({ stages, currentStep = 3 }) => {
+  const trackMinWidth = Math.max(stages.length * 92, 780);
+
   return (
     <div className="w-full bg-white font-sans select-none">
       <div className="overflow-x-auto custom-scrollbar pb-4">
-        <div className="relative flex items-center min-w-max px-2">
+        <div className="relative flex items-center px-2" style={{ minWidth: `${trackMinWidth}px` }}>
           <div className="absolute top-[14px] left-8 right-8 h-[2px] bg-[#e5e7eb] z-0" />
 
           {stages.map((stage, index) => {
-            const stepNumber = index + 1;
+            const stepNumber = stage.step ?? index + 1;
             const isDone = stepNumber < currentStep;
             const isCurrent = stepNumber === currentStep;
-            const isLast = index === stages.length - 1;
 
             return (
               <div key={index} className="relative flex flex-col items-center group" style={{ width: '70px' }}>
@@ -55,7 +56,7 @@ const StagesTrack = ({ stages, currentStep = 3 }) => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .custom-scrollbar::-webkit-scrollbar {
           height: 4px;
         }

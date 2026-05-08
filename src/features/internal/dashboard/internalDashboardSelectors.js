@@ -44,6 +44,11 @@ export const selectInternalAuditTrail = createSelector(
   (dashboard) => dashboard.auditTrail
 );
 
+export const selectInternalRegisteredVendors = createSelector(
+  selectInternalDashboardEntities,
+  (dashboard) => dashboard.registeredVendors ?? []
+);
+
 export const selectInternalCreateModalOpen = createSelector(
   selectInternalDashboardState,
   (state) => state.ui.isCreateModalOpen

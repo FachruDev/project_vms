@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import TopNavbarInternal from "../../components/internal/dashboard/TopNavbarInternal";
 import KpiCardInternal from "../../components/internal/dashboard/KpiCardInternal";
 import StatusTabsInternal from "../../components/internal/dashboard/StatusTabsInternal";
@@ -29,6 +30,7 @@ import IconInternal from "../../components/internal/dashboard/IconInternal";
 
 function InternalDashboardPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const notificationCount = useSelector(selectInternalNotificationCount);
   const kpiCards = useSelector(selectInternalKpiCards);
@@ -75,7 +77,7 @@ function InternalDashboardPage() {
               focusTender={focusTender}
               stages={stages}
               currentStep={currentStep}
-              onView={() => {}}
+              onView={() => navigate(`/internal/tender/${focusTender.id}/detail`)}
               onEdit={() => dispatch(openCreateTenderModal())}
             />
           </div>

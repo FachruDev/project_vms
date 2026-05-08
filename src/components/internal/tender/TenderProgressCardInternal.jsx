@@ -1,7 +1,7 @@
 import StagesTrack from "../dashboard/StagesTrackInternal";
 import Icon from "../dashboard/IconInternal";
 
-function TenderProgressCard({ stages, alertText, showDates = true }) {
+function TenderProgressCard({ stages, currentStep, alertText, showDates = true }) {
   const mappedStages = showDates
     ? stages
     : stages.map((item) => ({ ...item, date: "" }));
@@ -17,7 +17,7 @@ function TenderProgressCard({ stages, alertText, showDates = true }) {
       </div>
 
       <div className="mt-5">
-        <StagesTrack stages={mappedStages} showDates={showDates} />
+        <StagesTrack stages={mappedStages} currentStep={currentStep} showDates={showDates} />
       </div>
     </article>
   );
