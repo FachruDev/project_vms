@@ -4,6 +4,7 @@ import { vendorRegistrationFormDefaults } from "../../shared/entities/entitiesSe
 const buildInitialState = () => ({
   ui: {
     activeTabId: "TAB-001",
+    overviewCardMode: "compact",
   },
   registrationForm: {
     ...vendorRegistrationFormDefaults,
@@ -16,6 +17,9 @@ const tenderSlice = createSlice({
   reducers: {
     setActiveTab(state, action) {
       state.ui.activeTabId = action.payload;
+    },
+    setOverviewCardMode(state, action) {
+      state.ui.overviewCardMode = action.payload;
     },
     updateRegistrationField(state, action) {
       const { field, value } = action.payload;
@@ -33,6 +37,7 @@ const tenderSlice = createSlice({
 
 export const {
   setActiveTab,
+  setOverviewCardMode,
   updateRegistrationField,
   updateRegistrationFile,
   resetRegistrationForm,
