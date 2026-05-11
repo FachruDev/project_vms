@@ -5,7 +5,6 @@ function TenderOverviewInternal({ focusTender, stages, currentStep, onView, onEd
   return (
     <article className="group overflow-hidden rounded-2xl border border-[#d9dde4] bg-[#f7f8fa] shadow-[0_4px_12px_rgba(10,18,35,0.05)] transition-all duration-300 hover:-translate-y-1 hover:border-[#153c7a]/30 hover:shadow-[0_12px_24px_rgba(10,18,35,0.12)]">
       
-      {/* Header Section - Identik 100% */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#e3e6eb] px-5 py-5 md:px-6 transition-colors duration-300 group-hover:bg-white/50">
         <div>
           <h2 className="text-md leading-tight font-semibold text-[#1f2a39] transition-colors group-hover:text-[#153c7a]">
@@ -20,12 +19,10 @@ function TenderOverviewInternal({ focusTender, stages, currentStep, onView, onEd
         </span>
       </div>
 
-      {/* Stages Section - Identik 100% */}
       <div className="border-b border-[#e3e6eb] px-5 py-6 md:px-6 transition-colors duration-300 group-hover:bg-white/30">
         <StagesTrack stages={stages} currentStep={currentStep} />
       </div>
 
-      {/* Info Grid - Tipografi disamakan (text-sm) */}
       <div className="grid gap-2 border-b border-[#e3e6eb] px-5 py-3 text-sm text-[#677b74] sm:grid-cols-2 md:px-6">
         <p className="inline-flex items-center gap-2.5 transition-colors hover:text-[#1f2a39]">
           <Icon name="wallet" className="h-4 w-4 opacity-70" />
@@ -45,7 +42,6 @@ function TenderOverviewInternal({ focusTender, stages, currentStep, onView, onEd
         </p>
       </div>
 
-      {/* Action Buttons - Efek Fill Slide & Tipografi Identik */}
       <div className="grid gap-3 px-5 py-4 sm:grid-cols-2 md:px-6 bg-white/20">
         <button
           type="button"

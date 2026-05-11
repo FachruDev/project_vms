@@ -57,19 +57,15 @@ function InternalDashboardPage() {
           <button
             type="button"
             onClick={() => dispatch(openCreateTenderModal())}
-            // Update Class Tombol Utama
             className="
               group/btn relative overflow-hidden inline-flex cursor-pointer items-center gap-2 rounded-xl bg-[#153c7a] px-5 py-2.5 
               text-sm font-semibold text-white shadow-md active:scale-[0.98]
-              
-              /* Animasi Fill Slide */
               before:absolute before:inset-0 before:origin-right before:scale-x-0 
               before:bg-[#0c2d5a] /* Biru yang lebih gelap untuk fill */
               before:transition-transform before:duration-500 before:ease-out 
               hover:before:origin-left hover:before:scale-x-100
             "
           >
-            {/* Menggunakan relative z-10 agar teks & icon tetap di atas background yang geser */}
             <span className="relative z-10 flex items-center gap-2">
               <IconInternal 
                 name="plus" 

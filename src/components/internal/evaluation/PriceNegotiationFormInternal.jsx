@@ -4,7 +4,6 @@ import Icon from "../dashboard/IconInternal";
 function PriceNegotiationFormInternal({ tabs, activeTab, onChangeTab, rows }) {
   return (
     <article className="rounded-2xl border border-[#d9dde4] bg-[#f6f7f9] p-6 shadow-[0_8px_20px_rgba(10,18,35,0.04)]">
-      {/* Header Form */}
       <div className="flex items-center justify-between border-b border-[#e3e6eb] pb-4">
         <h2 className="text-md font-bold text-[#08253a]">Form Evaluasi Teknis</h2>
         <div className="flex items-center gap-2 rounded-lg bg-[#f0f2f5] px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-[#64748b] border border-[#d1d8e0]">
@@ -15,7 +14,6 @@ function PriceNegotiationFormInternal({ tabs, activeTab, onChangeTab, rows }) {
 
       <EvaluationTabsInternal tabs={tabs} activeTab={activeTab} onChangeTab={onChangeTab} />
 
-      {/* Info Banner */}
       <div className="mt-5 flex items-start gap-3 rounded-xl border border-[#9fb6dd]/40 bg-[#eef3fb] p-4">
         <Icon name="info" className="mt-0.5 h-5 w-5 text-[#153c7a]" />
         <div>
@@ -26,7 +24,6 @@ function PriceNegotiationFormInternal({ tabs, activeTab, onChangeTab, rows }) {
         </div>
       </div>
 
-      {/* Table Section */}
       <div className="mt-6 overflow-x-auto rounded-xl border border-[#e5e9ef] bg-white shadow-sm">
         <table className="min-w-full border-separate border-spacing-0">
           <thead>
@@ -74,9 +71,7 @@ function PriceNegotiationFormInternal({ tabs, activeTab, onChangeTab, rows }) {
         </table>
       </div>
 
-      {/* FINAL SCORE BANNER - High Professional Focus */}
       <div className="group relative mt-6 flex items-center justify-between gap-4 overflow-hidden rounded-2xl border border-[#f1d7a4] bg-[#fcf9ee] px-6 py-5 shadow-sm transition-all hover:shadow-md">
-        {/* Decorative background icon */}
         <Icon name="settings" className="absolute -right-4 -top-4 h-24 w-24 text-[#f1d7a4] opacity-10 rotate-12" />
         
         <div className="relative z-10">
@@ -92,7 +87,6 @@ function PriceNegotiationFormInternal({ tabs, activeTab, onChangeTab, rows }) {
         </div>
       </div>
 
-      {/* Submit Button with Fill Slide Effect */}
       <button className="group/btn relative cursor-pointer mt-6 overflow-hidden inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#153c7a] px-4 py-3.5 text-sm font-bold text-white shadow-md transition-all active:scale-[0.98] before:absolute before:inset-0 before:origin-right before:scale-x-0 before:bg-[#0c2d5a] before:transition-transform before:duration-500 before:ease-out hover:before:origin-left hover:before:scale-x-100">
         <span className="relative z-10 flex items-center gap-2 text-base">
           <Icon name="clipboard-check" className="h-5 w-5" />

@@ -17,7 +17,6 @@ function UpdateProgressCardInternal({ data, stages, currentStep, onBack, onStage
 
   return (
     <article className="rounded-2xl border border-[#d9dde4] bg-[#f6f7f9] p-6 shadow-[0_8px_20px_rgba(10,18,35,0.04)] transition-all duration-300">
-      {/* Header */}
       <div className="flex items-center justify-between border-b border-[#e3e6eb] pb-4">
         <h3 className="flex items-center gap-2 text-md font-bold text-[#08253a]">
           <Icon name="upload" className="h-5 w-5 text-[#153c7a]" /> 
@@ -25,7 +24,6 @@ function UpdateProgressCardInternal({ data, stages, currentStep, onBack, onStage
         </h3>
       </div>
 
-      {/* SLA Alert */}
       <div className="mt-4 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-red-700">
         <Icon name="alert" className="h-5 w-5 shrink-0" />
         <div>
@@ -34,9 +32,7 @@ function UpdateProgressCardInternal({ data, stages, currentStep, onBack, onStage
         </div>
       </div>
 
-      {/* Input Section */}
       <div className="mt-6 space-y-6">
-        {/* Menggunakan Reusable Dropdown */}
         <div className="space-y-2">
           <label className="block text-[11px] font-black uppercase tracking-wider text-[#64748b]">Pilih Tahap Selanjutnya</label>
           <CustomDropdown 
@@ -51,7 +47,6 @@ function UpdateProgressCardInternal({ data, stages, currentStep, onBack, onStage
           />
         </div>
 
-        {/* Upload Section */}
         <div className="space-y-2">
           <label className="block text-[11px] font-black uppercase tracking-wider text-[#64748b]">Upload Bukti Dokumen *</label>
           <label className="group/file flex cursor-pointer flex-col items-center rounded-xl border-2 border-dashed border-[#cbd3df] bg-white px-4 py-8 text-center transition-all hover:border-[#153c7a]/40 hover:bg-[#f8fafc]">
@@ -64,7 +59,6 @@ function UpdateProgressCardInternal({ data, stages, currentStep, onBack, onStage
           </label>
         </div>
 
-        {/* Textarea */}
         <div className="space-y-2">
           <label className="block text-[11px] font-black uppercase tracking-wider text-[#64748b]">Keterangan (Opsional)</label>
           <textarea
@@ -75,7 +69,6 @@ function UpdateProgressCardInternal({ data, stages, currentStep, onBack, onStage
         </div>
       </div>
 
-      {/* Buttons */}
       <div className="mt-8 space-y-3">
         <button
           type="button"
@@ -98,7 +91,6 @@ function UpdateProgressCardInternal({ data, stages, currentStep, onBack, onStage
         </button>
       </div>
 
-      {/* History */}
       <div className="mt-8 border-t border-[#e3e6eb] pt-6">
         <h4 className="text-[11px] font-black uppercase tracking-[0.15em] text-[#94a3b8]">Riwayat Dokumen</h4>
         <div className="mt-4 space-y-2">

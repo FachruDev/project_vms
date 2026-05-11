@@ -12,14 +12,12 @@ function CreateTenderModalInternal({
 }) {
   if (!open) return null;
 
-  // Reusable Class untuk Form Input
   const inputBase =
     "w-full rounded-xl border border-[#d1d8e0] bg-[#f8fafc] px-4 py-2.5 text-sm text-[#0f2431] outline-none transition-all duration-300 focus:border-[#153c7a] focus:ring-4 focus:ring-[#153c7a]/10 focus:bg-white";
 
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center bg-[#0f172a]/60 p-4 backdrop-blur-sm animate-in fade-in duration-300">
       <div className="relative mx-auto max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-[2.5rem] border border-[#d8e0ef] bg-white p-8 shadow-2xl animate-in zoom-in-95 duration-300">
-        {/* Header Modal */}
         <div className="flex items-start justify-between gap-3 border-b border-[#f0f2f5] pb-6">
           <div>
             <h3 className="text-2xl font-bold tracking-tight text-[#081c43]">
@@ -39,9 +37,7 @@ function CreateTenderModalInternal({
           </button>
         </div>
 
-        {/* Form Body */}
         <div className="space-y-6">
-          {/* Tender Title */}
           <div>
             <label className="mb-2 block text-[11px] font-black uppercase tracking-wider text-[#64748b]">
               Tender Title *
@@ -54,7 +50,6 @@ function CreateTenderModalInternal({
             />
           </div>
 
-          {/* Description */}
           <div>
             <label className="mb-2 block text-[11px] font-black uppercase tracking-wider text-[#64748b]">
               Description
@@ -68,7 +63,6 @@ function CreateTenderModalInternal({
             />
           </div>
 
-          {/* URS Upload */}
           <div>
             <label className="mb-2 block text-[11px] font-black uppercase tracking-wider text-[#64748b]">
               Dokumen URS (User Requirement Specification) *
@@ -93,7 +87,6 @@ function CreateTenderModalInternal({
             </label>
           </div>
 
-          {/* Budget & Deadline */}
           <div className="grid gap-6 md:grid-cols-2">
             <div>
               <label className="mb-2 block text-[11px] font-black uppercase tracking-wider text-[#64748b]">
@@ -123,7 +116,6 @@ function CreateTenderModalInternal({
               />
             </div>
           </div>
-          {/* Category & Jenis Tender */}
           <div className="grid gap-6 md:grid-cols-2">
             <div className="space-y-2">
               <label className="block text-[11px] font-black uppercase tracking-wider text-[#64748b]">
@@ -156,7 +148,6 @@ function CreateTenderModalInternal({
           </div>
         </div>
 
-        {/* Footer Actions */}
         <div className="mt-10 flex flex-wrap gap-3 border-t border-[#f0f2f5] pt-8">
           <button
             type="button"

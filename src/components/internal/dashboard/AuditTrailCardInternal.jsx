@@ -20,7 +20,6 @@ function AuditTrailCardInternal({ items = [] }) {
 
   return (
     <article className="rounded-2xl border border-[#d9dde4] bg-[#f6f7f9] p-5 shadow-[0_8px_20px_rgba(10,18,35,0.04)]">
-      {/* Header Section */}
       <div className="flex items-center justify-between gap-2 border-b border-[#e3e6eb] pb-4">
         <div className="flex items-center gap-3">
           <span className="grid h-10 w-10 place-items-center rounded-xl bg-[#eaf1ff] text-[#153c7a] ring-1 ring-[#153c7a]/10">
@@ -33,7 +32,6 @@ function AuditTrailCardInternal({ items = [] }) {
         </span>
       </div>
 
-      {/* List Section */}
       <div className="mt-4 space-y-2">
         {visibleItems.map((item) => (
           <div 
@@ -57,7 +55,6 @@ function AuditTrailCardInternal({ items = [] }) {
         ))}
       </div>
 
-      {/* Footer Action */}
       <div className="mt-4 flex gap-3">
         {remainingCount > 0 && (
           <button 

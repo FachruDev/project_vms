@@ -20,7 +20,6 @@ function VendorDetailModal({ vendor, onClose }) {
     <div className="fixed inset-0 z-[70] flex items-center justify-center bg-[#0f172a]/60 p-4 backdrop-blur-sm animate-in fade-in duration-300">
       <div className="relative w-full max-w-3xl overflow-hidden rounded-[2.5rem] border border-[#d8e0ef] bg-white shadow-2xl animate-in zoom-in-95 duration-300">
         
-        {/* Header Modal */}
         <div className="flex items-start justify-between border-b border-[#f0f2f5] p-8">
           <div>
             <div className="flex items-center gap-3">
@@ -40,11 +39,9 @@ function VendorDetailModal({ vendor, onClose }) {
           </button>
         </div>
 
-        {/* Content Body */}
         <div className="max-h-[70vh] overflow-y-auto p-8 pt-6">
           <div className="grid gap-6 md:grid-cols-[1.2fr_1fr]">
             
-            {/* Left Column: Info Perusahaan */}
             <div className="space-y-6">
               <div>
                 <h4 className="text-[11px] font-black uppercase tracking-[0.15em] text-[#94a3b8]">Profil Perusahaan</h4>
@@ -69,7 +66,6 @@ function VendorDetailModal({ vendor, onClose }) {
               </div>
             </div>
 
-            {/* Right Column: Dokumen */}
             <div className="space-y-6">
               <div>
                 <h4 className="text-[11px] font-black uppercase tracking-[0.15em] text-[#94a3b8]">Berkas Lampiran</h4>
@@ -100,7 +96,6 @@ function VendorDetailModal({ vendor, onClose }) {
           </div>
         </div>
 
-        {/* Action Footer (Opsional: Jika ingin tambah tombol approve/reject di modal) */}
         <div className="border-t border-[#f0f2f5] bg-[#f8fafc] p-6 text-right">
           <button 
             onClick={onClose}
@@ -146,7 +141,6 @@ function RegisteredVendorsCardInternal({ vendors }) {
                     <p className="text-sm font-bold leading-tight text-[#1f2b3a] transition-colors group-hover:text-[#153c7a]">
                       {vendor.companyName}
                     </p>
-                    {/* View Button - Polished */}
                     <button
                       type="button"
                       onClick={() => setSelectedVendor(vendor)}

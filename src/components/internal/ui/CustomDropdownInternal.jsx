@@ -24,7 +24,6 @@ function CustomDropdown({ options, selectedValue, onSelect, placeholder, nextSte
 
   return (
     <div className="relative w-full" ref={dropdownRef}>
-      {/* Trigger Button */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
@@ -39,7 +38,6 @@ function CustomDropdown({ options, selectedValue, onSelect, placeholder, nextSte
         />
       </button>
 
-      {/* Dropdown Menu - Simple Floating Card */}
       {isOpen && (
         <div className="absolute z-50 mt-2 w-full rounded-2xl border border-[#e2e8f0] bg-white p-2 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)] animate-in fade-in zoom-in-95 duration-200">
           <div className="max-h-[300px] overflow-y-auto space-y-1">
