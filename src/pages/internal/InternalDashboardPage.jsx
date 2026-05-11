@@ -12,6 +12,7 @@ import {
   openCreateTenderModal,
   resetCreateTenderForm,
   setInternalActiveTab,
+  setInternalOverviewCardMode,
   updateCreateTenderField,
 } from "../../features/internal/dashboard/internalDashboardSlice";
 import {
@@ -25,6 +26,8 @@ import {
   selectInternalNotificationCount,
   selectInternalStages,
   selectInternalTabsWithActive,
+  selectInternalTenderCards,
+  selectInternalTenderOverviewCardMode,
 } from "../../features/internal/dashboard/internalDashboardSelectors";
 import IconInternal from "../../components/internal/dashboard/IconInternal";
 
@@ -38,6 +41,8 @@ function InternalDashboardPage() {
   const focusTender = useSelector(selectInternalFocusTender);
   const stages = useSelector(selectInternalStages);
   const currentStep = useSelector(selectInternalCurrentStep);
+  const overviewCardMode = useSelector(selectInternalTenderOverviewCardMode);
+  const tenderCards = useSelector(selectInternalTenderCards);
   const actionItems = useSelector(selectInternalActionItems);
   const auditTrail = useSelector(selectInternalAuditTrail);
   const modalOpen = useSelector(selectInternalCreateModalOpen);
@@ -84,14 +89,57 @@ function InternalDashboardPage() {
 
         <section className="mt-6 grid gap-5 xl:grid-cols-[minmax(0,1.9fr)_minmax(360px,0.95fr)]">
           <div className="space-y-4">
-            <StatusTabsInternal tabs={tabs} onChangeTab={(tabId) => dispatch(setInternalActiveTab(tabId))} />
-            <TenderOverviewInternal
-              focusTender={focusTender}
-              stages={stages}
-              currentStep={currentStep}
-              onView={() => navigate(`/internal/tender/${focusTender.id}/detail`)}
-              onEdit={() => navigate(`/internal/tender/${focusTender.id}/detail?mode=edit`)}
-            />
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <StatusTabsInternal tabs={tabs} onChangeTab={(tabId) => dispatch(setInternalActiveTab(tabId))} />
+              <div className="flex items-center gap-2 rounded-2xl border border-[#d9dde4] bg-white p-2 shadow-sm">
+                <button
+                  type="button"
+                  aria-label="Compact view"
+                  className={`inline-flex h-8 w-8 items-center justify-center rounded-xl transition ${
+                    overviewCardMode === "compact"
+                      ? "bg-[#153c7a] text-white"
+                      : "bg-[#f7f8fa] text-[#1f2a39] hover:bg-[#eef3ff]"
+                  }`}
+                  onClick={() => dispatch(setInternalOverviewCardMode("compact"))}
+                >
+                  <IconInternal name="grid" className="h-5 w-5" />
+                </button>
+                <button
+                  type="button"
+                  aria-label="Full view"
+                  className={`inline-flex h-8 w-8 items-center justify-center rounded-xl transition ${
+                    overviewCardMode === "full"
+                      ? "bg-[#153c7a] text-white"
+                      : "bg-[#f7f8fa] text-[#1f2a39] hover:bg-[#eef3ff]"
+                  }`}
+                  onClick={() => dispatch(setInternalOverviewCardMode("full"))}
+                >
+                  <IconInternal name="layout" className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+            {overviewCardMode === "compact" ? (
+              <div className="grid gap-5 grid-cols-1 sm:grid-cols-2">
+                {tenderCards.map((card) => (
+                  <TenderOverviewInternal
+                    key={card.id}
+                    focusTender={card}
+                    stages={stages}
+                    currentStep={currentStep}
+                    onView={() => navigate(`/internal/tender/${card.id}/detail`)}
+                    onEdit={() => navigate(`/internal/tender/${card.id}/detail?mode=edit`)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <TenderOverviewInternal
+                focusTender={focusTender}
+                stages={stages}
+                currentStep={currentStep}
+                onView={() => navigate(`/internal/tender/${focusTender.id}/detail`)}
+                onEdit={() => navigate(`/internal/tender/${focusTender.id}/detail?mode=edit`)}
+              />
+            )}
           </div>
 
           <aside className="space-y-5">

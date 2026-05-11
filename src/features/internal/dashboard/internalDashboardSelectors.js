@@ -1,5 +1,8 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { selectInternalDashboardEntities } from "../../shared/entities/entitiesSelectors";
+import {
+  selectEntitiesState,
+  selectInternalDashboardEntities,
+} from "../../shared/entities/entitiesSelectors";
 
 export const selectInternalDashboardState = (state) => state.internalDashboard;
 
@@ -67,4 +70,65 @@ export const selectInternalCreateModalOpen = createSelector(
 export const selectInternalCreateTenderForm = createSelector(
   selectInternalDashboardState,
   (state) => state.createTenderForm
+);
+
+export const selectInternalTenderOverviewCardMode = createSelector(
+  selectInternalDashboardState,
+  (state) => state.ui.overviewCardMode
+);
+
+const formatDeadline = (deadline) => {
+  if (!deadline) return "";
+  const [year, month, day] = deadline.split("-");
+  const monthNames = {
+    "01": "Januari",
+    "02": "Februari",
+    "03": "Maret",
+    "04": "April",
+    "05": "Mei",
+    "06": "Juni",
+    "07": "Juli",
+    "08": "Agustus",
+    "09": "September",
+    "10": "Oktober",
+    "11": "November",
+    "12": "Desember",
+  };
+  return `${day} ${monthNames[month] ?? month} ${year}`;
+};
+
+const buildInternalTenderCard = (tender, categories, progressLabels) => ({
+  id: tender.tenderCode || tender.id,
+  title: tender.title,
+  badge: progressLabels[tender.progressId] || tender.badge || "Aktif",
+  budgetDisplay: tender.budgetDisplay || `Rp ${tender.budget?.toLocaleString("id-ID") ?? "0"}`,
+  dueDate: tender.dueDate || formatDeadline(tender.deadline),
+  vendorCount: tender.vendorCount ?? 8,
+  category: tender.category || categories[tender.categoryId] || "Lainnya",
+});
+
+export const selectInternalTenderCards = createSelector(
+  [selectEntitiesState, selectInternalDashboardEntities],
+  (entities, dashboard) => {
+    const categories = Object.fromEntries(
+      entities.tenderCategories.map((category) => [category.id, category.title])
+    );
+    const progressLabels = Object.fromEntries(
+      entities.progressTender.map((item) => [item.id, item.title])
+    );
+
+    const focusTender = dashboard.focusTender;
+    const secondaryTender = entities.tenders.find(
+      (tender) => tender.tenderCode !== focusTender.id
+    );
+
+    return [
+      focusTender,
+      buildInternalTenderCard(
+        secondaryTender || entities.tenders[0] || focusTender,
+        categories,
+        progressLabels
+      ),
+    ];
+  }
 );

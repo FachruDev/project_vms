@@ -5,6 +5,7 @@ const initialState = {
   ui: {
     activeTabId: "ITAB-001",
     isCreateModalOpen: false,
+    overviewCardMode: "compact",
   },
   createTenderForm: {
     ...internalCreateTenderFormDefaults,
@@ -17,6 +18,9 @@ const internalDashboardSlice = createSlice({
   reducers: {
     setInternalActiveTab(state, action) {
       state.ui.activeTabId = action.payload;
+    },
+    setInternalOverviewCardMode(state, action) {
+      state.ui.overviewCardMode = action.payload;
     },
     openCreateTenderModal(state) {
       state.ui.isCreateModalOpen = true;
@@ -36,6 +40,7 @@ const internalDashboardSlice = createSlice({
 
 export const {
   setInternalActiveTab,
+  setInternalOverviewCardMode,
   openCreateTenderModal,
   closeCreateTenderModal,
   updateCreateTenderField,
